@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KaamKaaj</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div class="mainCont">
+            <!-- <div class="themeSwitch">
+                <span class="innerSwitch"></span>
+            </div> -->
+            <div class="loginFormContainer">
+                <form class="loginForm" onSubmit={handleSubmit}>
+                    <h2 class="loginFormTitle">Log Into Your Space,</h2>
+                    <div class="loginFormGroup">
+                        <i class="fa-regular fa-envelope"></i>
+                        <input type="email" id="email" class="loginFormInput" placeholder="Enter Email" required />
+                    </div>
+                    <div class="loginFormGroup">
+                        <i class="fa-solid fa-key"></i>
+                        <input type="password" id="password" class="loginFormInput" placeholder="Enter Password"
+                            required />
+                    </div>
+                    <button type="submit" class="loginFormButton">Login</button>
+                    <p class="redirectText">First time here, <a class="redirect" href="/signup.html">Register</a></p>
+                </form>
+
+            </div>
+    </div>
+    <script src="./assets/JS/index.js" type="module"></script>
+</body>
+
+</html>

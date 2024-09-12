@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KaamKaaj</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div class="mainCont">
+            <!-- <div class="themeSwitch">
+                <span class="innerSwitch"></span>
+            </div> -->
+            <div class="signupFormContainer">
+                <form class="signupForm" onSubmit={handleSubmit}>
+                    <h2 class="signupFormTitle">Create Your Space,</h2>
+                    <div class="signupFormGroup">
+                        <i class="fa-regular fa-user"></i>
+                        <input type="text" id="username" class="signupFormInput" placeholder="Enter username" required />
+                    </div>
+                    <div class="signupFormGroup">
+                        <i class="fa-regular fa-envelope"></i>
+                        <input type="email" id="email" class="signupFormInput" placeholder="Enter Email" required />
+                    </div>
+                    <div class="signupFormGroup">
+                        <i class="fa-solid fa-key"></i>
+                        <input type="password" id="password" class="signupFormInput" placeholder="Enter Password"
+                            required />
+                    </div>
+                    <button type="submit" class="signupFormButton">signup</button>
+                    <p class="redirectText">Already our member, <a class="redirect" href="/login.html">lets Go</a></p>
+                </form>
+            </div>
+    </div>
+    <script src="./assets/JS/index.js" type="module"></script>
+</body>
+
+</html>
