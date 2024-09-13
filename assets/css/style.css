@@ -15,6 +15,8 @@
   font-family: sans-serif;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+
 }
 .mainCont {
   width: 100%;
@@ -24,6 +26,73 @@
   justify-content: center;
   flex-direction: column;
   background-color: var(--active);
+}
+.navbar{
+  height: 60px;
+  width: 100%;
+  background-color: #1c1c1c;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+}
+.logo{
+  color: #f5f5f5;
+  font-size: 28px;
+}
+.secondPart{
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+.logoutCont{
+  color: #f5f5f5;
+  font-size: 23px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.logoutCont::after{
+  content: "Logout";
+  color: #f5f5f5;
+  font-size: 23px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.subCont{
+  width: 100%;
+  flex-grow: 1;
+  padding: 0 20px;
+}
+.LoaderCont {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 9999;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color:var(--color2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.spinner {
+  border: 6px solid var(--primary);
+  border-top: 6px solid var(--active);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 .themeSwitch {
   width: 55px;
@@ -41,15 +110,15 @@
   position: absolute;
   left: 9%;
   background-color: var(--color2);
-  transition: 0.3s all linear;
+  transition: 0.1s all linear;
 }
-.themeSwitch:hover .innerSwitch {
+.activeThemeBtn .innerSwitch {
   left: 55%;
-  background-color: var(--color1);
 }
 .loginFormContainer,
 .signupFormContainer {
   display: flex;
+  position: relative;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -116,7 +185,6 @@
   color: var(--primary);
   font-size: 15px;
 }
-
 .loginFormButton,
 .signupFormButton {
   width: 80%;
@@ -130,7 +198,6 @@
   transition: 0.3s ease;
   margin-top: 25px;
 }
-
 .loginFormButton:hover,
 .signupFormButton:hover {
   opacity: 0.8;
@@ -144,4 +211,153 @@
   color: var(--color1);
   text-decoration: none;
   cursor: pointer;
+}
+
+
+.todoContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.todoListCard {
+  background-color: var(--color2);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 100% ;
+  min-width: 280px;
+  min-height: 250px;
+  position: relative;
+}
+.todoLoaderCont{
+  width: 100%;
+  height: calc(100% - 130px);
+  position: absolute;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color2);
+  border-radius: 16px;
+  top: 130px;
+  left:  0;
+}
+.todoLoader {
+  border: 6px solid var(--primary);
+  border-top: 6px solid var(--active);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: todospin 1s linear infinite;
+}
+@keyframes todospin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color1);
+  margin-bottom: 20px;
+}
+
+.emoji {
+  font-size: 24px;
+}
+
+.inputWrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.taskInput {
+  width: 100%;
+  padding: 10px 15px;
+  padding-right: 90px;
+
+  border: 1px solid var(--primary);
+  border-radius: 50px;
+  outline: none;
+  font-size: 14px;
+  background-color: #f0f0f0;
+}
+
+.addButton {
+  background-color: var(--active);
+  color: var(--color1);
+  border: none;
+  border-radius: 50px;
+  font-size: 16px;
+  padding: 9px 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  position: absolute;
+  right: 0;
+  outline: none;
+}
+
+.addButton:hover {
+  opacity: 0.9;
+}
+
+.taskList {
+  list-style: none;
+  padding-left: 0;
+}
+
+.taskItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--primary);
+}
+
+.taskItem:last-child {
+  border-bottom: none;
+}
+
+input[type="checkbox"] {
+  margin-right: 10px;
+  transform: scale(1.2);
+}
+
+label {
+  flex-grow: 1;
+  font-size: 16px;
+  color:var(--color1);
+}
+
+.completedTask {
+  text-decoration: line-through;
+  color: var(--primary);
+}
+
+.deleteButton {
+  font-size: 18px;
+  color: var(--active);
+  cursor: pointer;
+}
+
+
+
+
+
+@media (max-width:500px) {
+  .secondPart{
+    gap: 10px;
+  }
+  .logoutCont::after{
+    content: "";
+  }
 }

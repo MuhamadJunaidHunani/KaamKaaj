@@ -13,12 +13,39 @@
 
 <body>
     <div class="mainCont">
-            <!-- <div class="themeSwitch">
-                <span class="innerSwitch"></span>
-            </div> -->
-            <div class="subCont">
-                <div class="indexPage" id="indexPage"></div>
+        <nav class="navbar">
+            <div class="firstPart">
+                <h1 class="logo">Kamm Kaaj 🗓️</h1>
             </div>
+            <div class="secondPart">
+                <div class="logoutCont">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </div>
+                <div class="themeSwitch">
+                    <span class="innerSwitch"></span>
+                </div>
+            </div>
+        </nav>
+        <div class="subCont">
+            <div class="LoaderCont">
+                <div class="spinner"></div>
+            </div>
+            <div class="todoContainer" id="indexPage">
+                <div class="todoListCard">
+                    <div class="todoLoaderCont">
+                        <div class="todoLoader"></div>
+                    </div>
+                    <h2 class="title">Kaam Kaaj <span class="emoji">🗓️</span></h2>
+                    <div class="inputWrapper">
+                        <input type="text" placeholder="Save your memo" class="taskInput">
+                        <button class="addButton">ADD</button>
+                    </div>
+                     <ul class="taskList">
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
     <script src="./assets/JS/index.js" type="module"></script>
 </body>
