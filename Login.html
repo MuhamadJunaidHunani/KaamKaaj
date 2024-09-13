@@ -16,16 +16,16 @@
             <!-- <div class="themeSwitch">
                 <span class="innerSwitch"></span>
             </div> -->
-            <div class="loginFormContainer">
-                <form class="loginForm" onSubmit={handleSubmit}>
+            <div class="loginFormContainer" id="loginPage">
+                <form class="loginForm">
                     <h2 class="loginFormTitle">Log Into Your Space,</h2>
                     <div class="loginFormGroup">
                         <i class="fa-regular fa-envelope"></i>
-                        <input type="email" id="email" class="loginFormInput" placeholder="Enter Email" required />
+                        <input type="email" id="email" class="loginFormInput" name="email" placeholder="Enter Email" required />
                     </div>
                     <div class="loginFormGroup">
                         <i class="fa-solid fa-key"></i>
-                        <input type="password" id="password" class="loginFormInput" placeholder="Enter Password"
+                        <input type="password" id="password" class="loginFormInput" name="password" placeholder="Enter Password"
                             required />
                     </div>
                     <button type="submit" class="loginFormButton">Login</button>

@@ -16,20 +16,20 @@
             <!-- <div class="themeSwitch">
                 <span class="innerSwitch"></span>
             </div> -->
-            <div class="signupFormContainer">
-                <form class="signupForm" onSubmit={handleSubmit}>
+            <div class="signupFormContainer" id="signupPage">
+                <form class="signupForm">
                     <h2 class="signupFormTitle">Create Your Space,</h2>
                     <div class="signupFormGroup">
                         <i class="fa-regular fa-user"></i>
-                        <input type="text" id="username" class="signupFormInput" placeholder="Enter username" required />
+                        <input type="text" id="username" class="signupFormInput" name="username" placeholder="Enter username" required />
                     </div>
                     <div class="signupFormGroup">
                         <i class="fa-regular fa-envelope"></i>
-                        <input type="email" id="email" class="signupFormInput" placeholder="Enter Email" required />
+                        <input type="email" id="email" class="signupFormInput" name="email" placeholder="Enter Email" required />
                     </div>
                     <div class="signupFormGroup">
                         <i class="fa-solid fa-key"></i>
-                        <input type="password" id="password" class="signupFormInput" placeholder="Enter Password"
+                        <input type="password" id="password" class="signupFormInput" name="password" placeholder="Enter Password"
                             required />
                     </div>
                     <button type="submit" class="signupFormButton">signup</button>
