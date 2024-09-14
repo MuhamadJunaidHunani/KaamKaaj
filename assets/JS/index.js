@@ -173,7 +173,7 @@ else if (document.getElementById("indexPage")) {
             const TaskItem = document.createElement("li");
             TaskItem.classList.add("taskItem");
             TaskItem.innerHTML = `
-            <input type='checkbox' id="${item.id}" ${
+            <input type='checkbox' id="inputAdd" ${
               item.isDone ? "checked" : ""
             } />
             <label>${
@@ -190,7 +190,7 @@ else if (document.getElementById("indexPage")) {
                 deleteDocument("Tasks", item.id);
               }
             );
-            TaskItem.querySelector(`#${item.id}`).addEventListener(
+            TaskItem.querySelector(`#inputAdd`).addEventListener(
               "change",
               (e) => {
                 const isChecked = e.target.checked;
