@@ -62,7 +62,7 @@ if (document.getElementById("loginPage")) {
         toggleLoader(false);
         const errorCode = error.code;
         const errorMessage = error.message;
-        alert(errorMessage);
+        // alert(errorMessage);
       });
   });
 }
@@ -99,7 +99,7 @@ else if (document.getElementById("signupPage")) {
         toggleLoader(false);
         const errorCode = error.code;
         const errorMessage = error.message;
-        alert(errorMessage);
+        // alert(errorMessage);
       });
   });
 }
