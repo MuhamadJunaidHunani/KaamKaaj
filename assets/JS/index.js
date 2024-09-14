@@ -12,6 +12,7 @@ import {
   onSnapshot,
   query,
   where,
+  orderBy,
   doc,
   updateDoc,
   deleteDoc,
@@ -126,20 +127,38 @@ else if (document.getElementById("indexPage")) {
           console.error("Error adding document: ", e);
         }
       };
+      const deleteDocument = async (collectionName, docId) => {
+        try {
+          const docRef = doc(db, collectionName, docId);
+          await deleteDoc(docRef);
+          console.log("Document deleted with ID: ", docId);
+        } catch (e) {
+          console.error("Error deleting document: ", e);
+        }
+      };
+      const updateTask = async (collectionName, docId, isDone) => {
+        try {
+          const docRef = doc(db, collectionName, docId);
+          await updateDoc(docRef, { isDone });
+        } catch (e) {
+          console.error("Error updating task status: ", e);
+        }
+      };
       const fetchDocumentsRealTime = (collectionName, callback) => {
         try {
-          toggleTodoLoder(true)
+          toggleTodoLoder(true);
 
           const q = query(
             collection(db, collectionName),
-            where("userTaskId", "==", user.uid)
+            where("userTaskId", "==", user.uid),
+            orderBy("TimeStamp", "desc")
           );
           const unsubscribe = onSnapshot(q, (snapshot) => {
             const docs = snapshot.docs.map((doc) => ({
               id: doc.id,
               ...doc.data(),
             }));
-            toggleTodoLoder(false)
+            toggleTodoLoder(false);
             callback(docs);
           });
           return unsubscribe;
@@ -150,19 +169,41 @@ else if (document.getElementById("indexPage")) {
       fetchDocumentsRealTime("Tasks", (docs) => {
         taskList.innerHTML = "";
         if (docs.length > 0) {
-          docs.map((item , index)=>{
+          docs.map((item, index) => {
             const TaskItem = document.createElement("li");
             TaskItem.classList.add("taskItem");
-            TaskItem.innerHTML =
-            `<input type='checkbox' id='task1'><label for='task1'>${item.taskValue}</label><span class='deleteButton'>✕</span>`;
+            TaskItem.innerHTML = `
+            <input type='checkbox' id="${item.id}" ${
+              item.isDone ? "checked" : ""
+            } />
+            <label>${
+              item.isDone
+                ? `<s>${index + 1}. ${item.taskValue}</s>`
+                : `${index + 1}. ${item.taskValue}`
+            }</label>
+            <span class='deleteButton' id="${item.id}">✕</span>
+          `;
             taskList.appendChild(TaskItem);
-          })
-        }else{
+            TaskItem.querySelector(".deleteButton").addEventListener(
+              "click",
+              () => {
+                deleteDocument("Tasks", item.id);
+              }
+            );
+            TaskItem.querySelector(`#${item.id}`).addEventListener(
+              "change",
+              (e) => {
+                const isChecked = e.target.checked;
+                updateTask("Tasks", item.id, isChecked);
+              }
+            );
+          });
+        }
+        else {
           const TaskItem = document.createElement("li");
-            TaskItem.classList.add("taskItem");
-            TaskItem.innerHTML =
-            "No Data Found";
-            taskList.appendChild(TaskItem);
+          TaskItem.classList.add("taskItem");
+          TaskItem.innerHTML = "No Data Found";
+          taskList.appendChild(TaskItem);
         }
       });
 
@@ -171,6 +212,7 @@ else if (document.getElementById("indexPage")) {
           .then(() => {})
           .catch((error) => {});
       });
+
       document.querySelector(".addButton").addEventListener("click", () => {
         const taskValue = TaskInput.value;
         if (taskValue) {
