@@ -368,7 +368,14 @@ label {
   cursor: pointer;
 }
 
-
+.publicButton{
+  /* background-color: #bb86fc; */
+  color: #bb86fc;
+  font-size: 24px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: 0.2s all ease;
+}
 
 
 

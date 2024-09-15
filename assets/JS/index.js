@@ -14,6 +14,7 @@ import {
   where,
   orderBy,
   doc,
+  getDoc,
   updateDoc,
   deleteDoc,
 } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
@@ -147,22 +148,52 @@ else if (document.getElementById("indexPage")) {
       const fetchDocumentsRealTime = (collectionName, callback) => {
         try {
           toggleTodoLoder(true);
-
-          const q = query(
+      
+          // Query 1: Get documents where userTaskId matches the user's uid
+          const userTaskQuery = query(
             collection(db, collectionName),
             where("userTaskId", "==", user.uid),
             orderBy("TimeStamp", "desc")
           );
-          const unsubscribe = onSnapshot(q, (snapshot) => {
-            const docs = snapshot.docs.map((doc) => ({
+      
+          // Query 2: Get documents where public is true
+          const publicTaskQuery = query(
+            collection(db, collectionName),
+            where("public", "==", true),
+            orderBy("TimeStamp", "desc")
+          );
+      
+          // Set up listeners for both queries
+          const unsubscribeUserTask = onSnapshot(userTaskQuery, (userTaskSnapshot) => {
+            const userTasks = userTaskSnapshot.docs.map((doc) => ({
               id: doc.id,
               ...doc.data(),
             }));
-            toggleTodoLoder(false);
-            callback(docs);
+      
+            // Query 2 snapshot
+            const unsubscribePublicTask = onSnapshot(publicTaskQuery, (publicTaskSnapshot) => {
+              const publicTasks = publicTaskSnapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+              }));
+      
+              // Combine both results and remove duplicates
+              const allTasks = [...userTasks, ...publicTasks];
+              const uniqueTasks = Array.from(new Set(allTasks.map((task) => task.id)))
+                .map(id => allTasks.find(task => task.id === id));
+      
+              toggleTodoLoder(false);
+              callback(uniqueTasks);
+            });
+      
+            return () => {
+              // Unsubscribe both listeners if necessary
+              unsubscribeUserTask();
+              unsubscribePublicTask();
+            };
           });
-          return unsubscribe;
         } catch (e) {
+          toggleTodoLoder(false);
           console.error("Error fetching documents: ", e);
         }
       };
@@ -181,7 +212,8 @@ else if (document.getElementById("indexPage")) {
                 ? `<s>${index + 1}. ${item.taskValue}</s>`
                 : `${index + 1}. ${item.taskValue}`
             }</label>
-            <span class='deleteButton' id="${item.id}">✕</span>
+            <span class='publicButton'>${item?.public?'	&#9733;':'&#9734;'}</span>
+            <span class='deleteButton'>✕</span>
           `;
             taskList.appendChild(TaskItem);
             TaskItem.querySelector(".deleteButton").addEventListener(
@@ -190,6 +222,27 @@ else if (document.getElementById("indexPage")) {
                 deleteDocument("Tasks", item.id);
               }
             );
+            TaskItem.querySelector(".publicButton").addEventListener("click", async () => {
+              const taskRef = doc(db, "Tasks", item.id);
+              const taskSnapshot = await getDoc(taskRef);
+            
+              if (taskSnapshot.exists()) {
+                const currentPublicState = taskSnapshot.data().public;
+            
+                // Toggle the public state
+                const newPublicState = !currentPublicState;
+            
+                // Update the document with the new public state
+                await updateDoc(taskRef, {
+                  public: newPublicState,
+                });
+            
+                console.log(`Public state updated to: ${newPublicState}`);
+              } else {
+                console.log("No such document exists!");
+              }
+            });
+            
             TaskItem.querySelector(`#inputAdd`).addEventListener(
               "change",
               (e) => {
@@ -223,6 +276,7 @@ else if (document.getElementById("indexPage")) {
             isDone: false,
             TimeStamp: serverTimestamp(),
             userTaskId: user.uid,
+            public:false,
           });
         }
       });
